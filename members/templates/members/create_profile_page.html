@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Cr&eacute;action de votre profil{% endblock %}
+
+
+{% block content %}
+
+{% if user.is_authenticated %}
+	
+<h1>Cr&eacute;ation de votre profil</h1>
+    <br/><br/>
+<div class="form-group">
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-dark" type="submit">Cr&eacute;er</button>
+</form>
+</div>
+
+{% comment %}
+<script>
+	var name = "{{ user.id }}";
+	document.getElementById("elder").value
+		= name
+</script>
+{% endcomment %}
+
+{% else %}
+       <h2>Vous n'&ecirc;tes pas autoris&eacute; ici.</h2>
+{% endif %}
+
+{% endblock %}

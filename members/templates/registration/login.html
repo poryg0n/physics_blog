@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Loggez vous{% endblock %}
+
+
+{% block content %}
+<h1>Loggez vous</h1>
+    <br/><br/>	
+<div class="form-group">
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+      <input type="text" class="form-control" name="username" placeholder="Nom d'utilisateur">
+    </div>
+    <div class="mb-3">
+      <input type="password" class="form-control" name="password" placeholder="Mot de passe">
+    </div>
+    <button class="btn btn-dark" type="submit">Se logger</button>
+    <br/>
+    <br/>
+    <p>Pas encore de compte? Enregistrez-vous <a href="{%url 'register' %}">ici</a>.
+</form>
+
+
+</div>
+{% endblock %}

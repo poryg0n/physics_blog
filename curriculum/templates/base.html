@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+{% load static %}
+  <head>
+   <style>
+    body, html {
+    height: 100%;
+}
+
+/* The hero image */
+.hero-image {
+  /* Use "linear-gradient" to add a darken background effect to the image (Liz-Hart-Black-bellied-pangolin-Phataginus-tetradactyla-Sangha-Lodge-Central-Africa-Republic.jpg). This will make the text easier to read */
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/media/data/wp7423581.jpg");
+
+  /* Set a specific height */
+  height: 50%;
+
+  /* Position and center the image to scale nicely on all screens */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+.footer {
+  /* Use "linear-gradient" to add a darken background effect to the image (Liz-Hart-Black-bellied-pangolin-Phataginus-tetradactyla-Sangha-Lodge-Central-Africa-Republic.jpg). This will make the text easier to read */
+  background-color: black;
+
+  /* Set a specific height */
+  min-height: 10%;
+
+  /* Position and center the image to scale nicely on all screens */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+  
+/* Place text in the middle of the image */
+.hero-text {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+}
+
+.main{
+   margin-left:50px;
+   margin-right:50px;
+   padding: 0px 10px;
+}
+
+.footer {
+/* position: fixed; */
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
+}
+.footer-text {
+  text-align: center;
+  position: absolute;
+  color: white;
+}
+
+.footer_space {
+  height: 100px;
+  opacity: 0.1;
+}
+
+.login_register{
+  text-align: right;
+  margin-right:50px;
+  color: white;
+  }
+</style>
+
+
+    <!-- Required meta tags -->
+    <link rel="stylesheet" type="text/css" href={% static 'blog/main.css' %}>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>{% block title %}{% endblock %} </title>
+  </head>
+  <body>
+<div class="hero-image">
+	{% comment %}
+    <div class="banner_logo"><img src='/media/data/gpwg.png' style="float: left; width: 150px; " alt="logo"></div>
+    {% endcomment %}
+  <div class="hero-text">
+    <h1>Title of the blog</h1>
+    <p>Subtitle of the blog or inspirational message<p>
+    <p></p>
+    {% comment %}
+    <button class="btn btn-outline-secondary my-2 my-sm-0" style="color: white;">
+	    If acytion is to be performed, do it here.</button>
+    {% endcomment %}
+  </div>
+  {% comment%}
+  <div class="login_register">
+	  {% if user.is_authenticated %}
+	  <p> {{user.username}} |
+	  <a href="{% url 'profile' %}">Profil</a></p>
+	  <a href="{% url 'post-create' %}">Nouveau Post</a></p>
+	  <a href="{% url 'logout' %}">Se d&eacute;connecter</a></p>
+	  {% else %}
+	  <p><a href="{% url 'login' %}">S'identifier</a> |
+	     <a href="{% url 'register' %}">Cr&eacute;er un compte</a></p>
+	  {% endif%}
+  </div>
+  {% endcomment %}
+</div>
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+	  <a class="navbar-brand" href="{% url 'home' %}">Website Logo</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+		<a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+        </li>
+        <li class="nav-item">
+		<a class="nav-link" href="{% url 'category-list' %}">Categories</a>
+        </li>
+	{% comment %}
+	{% if cat_menu%}
+	<li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Categories
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+	      {% for item in cat_menu %}
+	      <a href="{% url 'category' item|slugify %}">{{ item }} </a>
+	      {% endfor %}
+          </ul>
+        </li>
+	{% endif %}
+	{% endcomment %}
+	{% if user.is_authenticated %}
+        <li class="nav-item">
+		<a class="nav-link" href="{% url 'add-post' %}">Add a post</a>
+        </li>
+	{% if user.is_superuser %}
+        <li class="nav-item">
+		<a class="nav-link" href="{% url 'add-category' %}">Add a category</a>
+	{% endif %}
+        </li>
+	{% comment %}
+	<li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Profile
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+	      {% if user.profile.id %}
+              <li><a href="{% url 'show-profile-page' user.profile.id %}">Show Profile</a></li>
+	      <li><a href="{% url 'edit-profile-page' user.profile.id %}">Edit Profile</a></li>
+	      {% else %}
+	      <li><a href="{% url 'create-profile-page' %}">Create Profile</a></li>
+	      {% endif %}
+	      <li><a href="{% url 'edit-user' %}">Edit Settings</a></li>
+          </ul>
+        </li>
+	{% endcomment%}
+        <li class="nav-item">
+		<a class="nav-link" href="{% url 'logout' %}">Log out</a>
+        </li>
+	{% else %}
+        <li class="nav-item">
+		<a class="nav-link" href="{% url 'register' %}">Sign up</a>
+        </li>
+        <li class="nav-item">
+		<a class="nav-link" href="{% url 'login' %}">Log in</a>
+        </li>
+	{% comment %}
+        <li class="nav-item">
+          <a class="nav-link disabled">Disabled</a>
+        </li>
+	{% endcomment %}
+	{% endif %}
+      </ul>
+      <ul class="navbar-nav ms-auto">
+	{% if user.is_authenticated %}
+	<li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle " href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+	    {% if user.first_name and user.last_name %}
+	    {{ user.first_name }} {{ user.last_name }}
+	    {% else %}
+	         {{ user.username }}
+	    {% endif %}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-left" aria-labelledby="navbarDropdown">
+	      {% if user.profile.id %}
+              <li><a href="{% url 'show-profile-page' user.profile.id %}">Show profile</a></li>
+	      <li><a href="{% url 'edit-profile-page' user.profile.id %}">Edit Profile</a></li>
+	      {% else %}
+	      <li><a href="{% url 'create-profile-page' %}">Create profile</a></li>
+	      {% endif %}
+	      {% comment %}
+	      <li><a href="{% url 'edit-user' %}">Edit an account</a></li>
+	      {% endcomment %}
+          </ul>
+        </li>
+	{% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+    <br/>
+    <div class="container">
+        {% if messages %}
+           {% for message in messages %}
+              <div class="alert alert-{{ message.tags }}">
+                 {{ message }}
+              </div>
+           {% endfor %}
+        {% endif %}
+
+       {% block header%}
+       {% endblock%}
+       {% block content %}
+       {% endblock %}
+    </div>
+
+<div class="separator_space" style="height: 20px;"></div>
+ <div class="footer">
+  <div class="footer-text">
+    <p>Partners<p>
+  </div>
+    <div class="footer_logos">
+	    <img src='/media/data/precious_woods_log_neg.jpg' style="width: 100px; " alt="logo">
+    	    <img src='/media/data/eco_wood_logo_neg.jpg' style="width: 40px; " alt="logo">
+    </div>
+</div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
+

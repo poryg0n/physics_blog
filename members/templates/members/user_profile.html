@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<h1>Profil d'Utilisateur</h1>
+{% endblock %}
+
+{% block content%}
+
+<div class="container-fluid">
+<div class="row flex-container">
+            <div class="card-body">
+	        <div class="row">
+                      <div class="col-4">  <img src="{{ page_user.profile_pic.url }}" class="card-img-top img-fluid" alt="{{ page_user.username }}"> </div>
+                      <div class="col-8" style="text-align:left;">
+			      <h5 class="card-title">{{ page_user.user.first_name }} {{ page_user.user.last_name }}</h5>
+                           <p class="card-text">{{ page_user.bio }}</p>
+
+                      </div>
+                </div>
+            </div>
+	<hr style="width:100%;text-align:left;margin-left:0">
+    <!-- </div> -->
+</div>
+</div>
+
+
+
+
+                  <a href="{% url 'edit-profile-page' page_user.id %}">Editer</a>
+
+
+
+
+	{% comment %}
+	<div class="col-md-3">
+	    <div class="row no-gutters">
+	        <div class="col-md-2">
+		    {% if page_user.profile_pic %}
+	            <img class="rounded-circle" src="{{ page_user.profile_pic.url }}" class="card-img" alt="..." width=100>
+	            {% else %}
+	            <img class="rounded-circle" src="{% static 'blog/images/default_pic.jpg' %}" class="card-img" alt="..." width=100>
+	            {% endif %}
+	        </div>
+	        <div class="col-md-10">
+	            <div class="card-body">
+	                <h5 class="card-title">
+			    {{ page_user.first_name }}
+			    {{ page_user.last_name }}
+			</h5>
+			{% if page_user.profile.website_url %}
+			    <a href="{{ page_user.profile.website_url }}">Website</a> | 
+			{% endif %}
+			{% if page_user.profile.website_url %}
+			    <a href="{{ page_user.profile.fb_url }}">Facebook</a> | 
+			{% endif %}
+			{% if page_user.profile.fb_url %}
+			    <a href="{{ page_user.profile.twitter_url }}">Twitter</a> |
+			{% endif %}
+			{% if page_user.profile.instagram_url %}
+			    <a href="{{ page_user.profile.instagram_url }}">Instagram</a>| 
+			{% endif %}
+			{% if page_user.profile.pinterest_url %}
+			    <a href="{{ page_user.profile.pinterst_.url }}">Pinterest</a>
+			{% endif %}
+			</p>
+	        	<p class="card-text">
+			{{ page_user.profile.bio }}
+	        	</p>
+	        	<p class="card-text"><small class="text-muted">
+	        	Last updated 3min ago</small></p>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	{% endcomment %}
+	<br/><br/>
+	<a href="{% url 'home' %}">Retour</a>
+{% endblock %}

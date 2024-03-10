@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ post.title_tag }}{% endblock %}
+
+{% block content %}
+{% comment %}
+current user : {{ user.id }}
+post user : {{ post.author.id }}
+{% endcomment %}
+
+<div class="card mb-3 border-0">
+	{% if post.image %}
+	    <img src="{{ post.image.url }}"> <br/><br/>
+	{% endif %}
+  <div class="card-body">
+	  <h5 class="card-title">{{ post.category }}</h5>
+	   <strong><h1 class="card-title">{{ post.title }}</h1></strong>
+	   <p> {{ post.author.first_name}} {{ post.author.last_name }} </p>
+	   <p> {{ post.post_date }}
+	   {% if user.is_authenticated %}
+	      {% if user.id == post.author.id %}
+	      -   <small><a href={% url 'edit-post' post.pk %}>Edit</a>
+                - <a href={% url 'delete-post' post.pk %}>Delete</a> </small>
+              {% endif %}
+	   {% endif %}
+	<hr>  
+	<br/>
+	   </p>
+	   <p class="card-text" style="text-align:justify;">{{ post.body }}</p>
+	   <p class="card-text"><small class="text-muted">
+		Last modifications on {{ post.post_date }} 
+	   </small></p>
+	      {% if post.attached_file %}
+	         <a href="{{ post.attached_file.url }}"><img src="/media/data/file.png" alt="{{ post.attached_file.url }}" width="30px;"></a>
+	      {% endif %}
+  </div>
+</div>
+
+
+	<div class="col-md-3">
+	    <div class="row no-gutters">
+	        <div class="col-md-2">
+		    {% if post.author.profile_pic %}
+	            <img class="rounded-circle" src="{{ post.author.profile_pic.url }}" class="card-img" alt="..." width=100>
+	            {% else %}
+		    {% comment %}
+	            <img class="rounded-circle" src="{% static 'blog/images/default_pic.jpg' %}" class="card-img" alt=" " width=100>
+		    {% endcomment %}
+	            {% endif %}
+	        </div>
+	        <div class="col-md-10">
+	            <div class="card-body">
+	                <h5 class="card-title">
+			    {{ post.author.first_name }}
+			    {{ post.author.last_name }}
+			</h5>
+	        	<p class="small text-muted">
+			{% if post.author.profile.id %}
+			<a href={% url 'show-profile-page' post.author.profile.id %}>Profile</a> | 
+			{% endif %}
+			{% if post.author.profile.website_url %}
+			    <a href="{{ post.author.profile.website_url }}">Website</a> | 
+			{% endif %}
+			{% if post.author.profile.fb_url %}
+			    <a href="{{ post.author.profile.fb_url }}">Facebook</a> | 
+			{% endif %}
+			{% if post.author.profile.fb_url %}
+			    <a href="{{ post.author.profile.twitter_url }}">Twitter</a> |
+			{% endif %}
+			{% if post.author.profile.instagram_url %}
+			    <a href="{{ post.author.profile.linkedin_url }}">LinkedIn</a>| 
+			{% endif %}
+			</p>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	<br/><br/>
+	<a href="{% url 'home' %}">Back</a>
+	<br/><br/>
+{% endblock %}

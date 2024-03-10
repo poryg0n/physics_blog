@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Editer votre page de profil{% endblock %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    {% if user.id == profile.user.id %}
+
+<h1>Editer votre page de profil</h1>
+    <br/><br/>
+<div class="form-group">
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+
+
+    <br/><br/>
+    <button class="btn btn-dark" type="submit">Editer</button>
+</form>
+</div>
+
+    {% else %}
+         <h2>Cette page ne correspond pas &agrave; votre profil.</h2>
+    {% endif %}
+{% else %}
+       <h2>Vous n'&ecirc;tes pas autoris&eacute;(e) ici.</h2>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}Enregistrement{% endblock %}
+
+
+{% block content %}
+<h1>Enregistrez-vous</h1>
+    <br/><br/>
+<div class="form-group">
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn btn-dark" type="submit">S'enregistrer</button>
+</form>
+</div>
+{% endblock %}
