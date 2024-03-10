@@ -1,8 +1,8 @@
 from django import forms
 from .models import Post, Category
 
-choices = [('theses','theses'),('publications','publications'),('conferences','conferences')]
-#choices = Category.objects.all().values_list('name','name')
+#choices = [('theses','theses'),('publications','publications'),('conferences','conferences')]
+choices = Category.objects.all().values_list('name','name')
 #choice_list = choices
 choice_list = []
 
