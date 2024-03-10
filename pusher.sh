@@ -14,5 +14,5 @@ git add . -A
 git commit -m "first commit"
 git branch -M main
 git remote remove origin
-git remote add origin https://github.com/poryg0n/physicist_blog.git
+git remote add origin https://github.com/poryg0n/physics_blog.git
 git push -fu origin main
