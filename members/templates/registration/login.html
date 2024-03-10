@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %}Loggez vous{% endblock %}
+{% block title %}Login{% endblock %}
 
 
 {% block content %}
@@ -9,15 +9,15 @@
 <form method="POST">
     {% csrf_token %}
     <div class="mb-3">
-      <input type="text" class="form-control" name="username" placeholder="Nom d'utilisateur">
+      <input type="text" class="form-control" name="username" placeholder="Username">
     </div>
     <div class="mb-3">
-      <input type="password" class="form-control" name="password" placeholder="Mot de passe">
+      <input type="password" class="form-control" name="password" placeholder="Password">
     </div>
-    <button class="btn btn-dark" type="submit">Se logger</button>
+    <button class="btn btn-dark" type="submit">Log in</button>
     <br/>
     <br/>
-    <p>Pas encore de compte? Enregistrez-vous <a href="{%url 'register' %}">ici</a>.
+    <p>Not registered yet? Click <a href="{%url 'register' %}">here</a>.
 </form>
 
 
