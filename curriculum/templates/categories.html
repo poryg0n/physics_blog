@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+
+{% block header %}
+{% if cats%}
+<h1 style="text-align:center;">{{ cats }}</h1>
+<br/><br/><hr/>
+{% endif %}
+{% endblock %}
+
+{% block content%}
+{% if category_posts %}
+
+<div class="row">
+    {% for post in category_posts %}
+        <div class="container">
+	    {% with img=post.image %}
+	        {% if img %}
+		    {% if forloop.counter0|divisibleby:2 %}
+                    <div class="card-body row">
+		        <div class="col-6">  <img src="{{ post.image.url }}" class="card-img-top img-fluid" style="width:300px; float:left;" alt="{{ post.title }}"> </div>
+		        <div class="col-6" style="text-align:center">
+                            <h5 class="card-title">{{ post.title }}</h5>
+	                       {% if user.is_authenticated %}
+	                       <small><a href={% url 'update-post' post.pk %}>Editer</a></small> - 
+	                       <small><a href={% url 'delete-post' post.pk %}>Effacer</a></small><br/>
+	                       {% endif %}
+
+                            <p class="card-text">{{ post.body | truncatechars:250 }}</p>
+                            <a href="{{ post.get_absolute_url }}">En savoir plus...</a>
+        	       </div>
+                    </div>
+                    {% else %}
+                    <div class="card-body row">
+		        <div class="col-6" style="text-align:center">
+                            <h5 class="card-title">{{ post.title }}</h5>
+	                       {% if user.is_authenticated %}
+	                       <small><a href={% url 'update-post' post.pk %}>Edit</a></small> - 
+	                       <small><a href={% url 'delete-post' post.pk %}>Delete</a></small><br/>
+	                       {% endif %}
+
+                            <p class="card-text">{{ post.body | truncatechars:250 }}</p>
+                            <a href="{{ post.get_absolute_url }}">En savoir plus...</a>
+        	       </div>
+		        <div class="col-6">  <img src="{{ post.image.url }}" class="card-img-top img-fluid" style="width:300px; float:right;" alt="{{ post.title }}"> </div>
+                    </div>
+                    {% endif %}
+	        {% else %}
+                    <div class="card-body row">
+		        <div class="col-14" style="text-align:center;">
+                            <h5 class="card-post-title">{{ post.title }}</h5>
+	                       {% if user.is_authenticated %}
+	                       <small><a href={% url 'update-post' post.pk %}>Editer</a></small> - 
+	                       <small><a href={% url 'delete-post' post.pk %}>Effacer</a></small><br/>
+	                       {% endif %}
+                            <p class="card-text">{{ post.body | truncatechars:250 }}</p>
+                            <a href="{{ post.get_absolute_url }}">En savoir plus...</a>
+        	       </div>
+                    </div>
+	        {% endif %}
+	    {% endwith %}
+        </div>
+    {% endfor %}
+</div>
+
+{% else%}
+ <h3>D&eacute;sol&eacute;, cette page n'existe pas..</h3>
+
+{% endif %}
+{% endblock %}
+
