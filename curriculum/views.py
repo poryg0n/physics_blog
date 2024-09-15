@@ -6,8 +6,8 @@ from .forms import PostForm, EditForm
 from django.urls import reverse_lazy, reverse
 
 # Create your views here.
-#def home(request):
-#    return render(request, 'home.html', {})
+def home(request):
+    return render(request, 'home.html', {})
 
 def homeblog(request):
 #   return redirect('article-detail',{'pk':1})
@@ -16,7 +16,7 @@ def homeblog(request):
 class HomeView(ListView):
     model = Post
     template_name = 'home.html'
-    ordering = ['-post_date']
+    ordering = ['-due_date']
 #   ordering = ['-id']
 
 
@@ -64,8 +64,8 @@ class EditCategoryView(UpdateView):
 #   fields = ['title','title_tag','body']
 
 def CategoryView(request, cats):
-    category_posts = Post.objects.filter(category=cats)
-    return render(request, 'categories.html', {'cats':cats, 'category_posts': category_posts})
+    category_posts = Post.objects.filter(category=cats.title())
+    return render(request, 'categories.html', {'cats':cats.title(), 'category_posts': category_posts})
 
 
 class DeleteCategoryView(DeleteView):

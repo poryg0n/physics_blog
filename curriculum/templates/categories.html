@@ -20,14 +20,14 @@
                     <div class="card-body row">
 		        <div class="col-6">  <img src="{{ post.image.url }}" class="card-img-top img-fluid" style="width:300px; float:left;" alt="{{ post.title }}"> </div>
 		        <div class="col-6" style="text-align:center">
-                            <h5 class="card-title">{{ post.title }}</h5>
+			    <h5 class="card-post-title">{{ post.due_date }} - {{ post.title }}</h5>
 	                       {% if user.is_authenticated %}
-	                       <small><a href={% url 'update-post' post.pk %}>Editer</a></small> - 
-	                       <small><a href={% url 'delete-post' post.pk %}>Effacer</a></small><br/>
+	                       <small><a href={% url 'edit-post' post.pk %}>Edit</a></small> - 
+	                       <small><a href={% url 'delete-post' post.pk %}>Delete</a></small><br/>
 	                       {% endif %}
 
                             <p class="card-text">{{ post.body | truncatechars:250 }}</p>
-                            <a href="{{ post.get_absolute_url }}">En savoir plus...</a>
+                            <a href="{{ post.get_absolute_url }}">More...</a>
         	       </div>
                     </div>
                     {% else %}
@@ -35,12 +35,12 @@
 		        <div class="col-6" style="text-align:center">
                             <h5 class="card-title">{{ post.title }}</h5>
 	                       {% if user.is_authenticated %}
-	                       <small><a href={% url 'update-post' post.pk %}>Edit</a></small> - 
+	                       <small><a href={% url 'edit-post' post.pk %}>Edit</a></small> - 
 	                       <small><a href={% url 'delete-post' post.pk %}>Delete</a></small><br/>
 	                       {% endif %}
 
                             <p class="card-text">{{ post.body | truncatechars:250 }}</p>
-                            <a href="{{ post.get_absolute_url }}">En savoir plus...</a>
+                            <a href="{{ post.get_absolute_url }}">More...</a>
         	       </div>
 		        <div class="col-6">  <img src="{{ post.image.url }}" class="card-img-top img-fluid" style="width:300px; float:right;" alt="{{ post.title }}"> </div>
                     </div>
@@ -48,13 +48,13 @@
 	        {% else %}
                     <div class="card-body row">
 		        <div class="col-14" style="text-align:center;">
-                            <h5 class="card-post-title">{{ post.title }}</h5>
+				<h5 class="card-post-title">{{ post.due_date }} - {{ post.title }}</h5>
 	                       {% if user.is_authenticated %}
-	                       <small><a href={% url 'update-post' post.pk %}>Editer</a></small> - 
-	                       <small><a href={% url 'delete-post' post.pk %}>Effacer</a></small><br/>
+	                       <small><a href={% url 'edit-post' post.pk %}>Edit</a></small> - 
+	                       <small><a href={% url 'delete-post' post.pk %}>Delete</a></small><br/>
 	                       {% endif %}
                             <p class="card-text">{{ post.body | truncatechars:250 }}</p>
-                            <a href="{{ post.get_absolute_url }}">En savoir plus...</a>
+                            <a href="{{ post.get_absolute_url }}">More...</a>
         	       </div>
                     </div>
 	        {% endif %}
@@ -64,7 +64,7 @@
 </div>
 
 {% else%}
- <h3>D&eacute;sol&eacute;, cette page n'existe pas..</h3>
+ <h3>Sorry, there is nothing here..</h3>
 
 {% endif %}
 {% endblock %}

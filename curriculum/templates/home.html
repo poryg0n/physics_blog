@@ -9,7 +9,7 @@
 {% for post in object_list %}
 
 <li><a href="{% url 'article-detail' post.pk %}">
-	    <strong>{{ post.title }}</strong></a> - 
+	<strong>( {{ post.due_date }} ) {{ post.title }}</strong></a> - 
 <a href="{% url 'category' post.category|slugify %}">{{ post.category }}</a> <br/>
 	    {% if post.author.first_name or post.author.last_name %}
             {{ post.author.first_name }} 

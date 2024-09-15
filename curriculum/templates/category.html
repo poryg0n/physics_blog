@@ -11,7 +11,7 @@
 <ul>
 {% for post in category_posts %}
 <li><a href="{% url 'article-detail' post.pk %}">
-	<strong>{{ post.title }}</strong></a><br/>
+	<strong>{{ post.title }} - {{ post.title }}</strong></a><br/>
 	{% if post.author.first_name or post.author.last_name %}
 	{{ post.author.first_name }} 
 	{{ post.author.last_name}} -

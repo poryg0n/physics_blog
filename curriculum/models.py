@@ -20,6 +20,7 @@ class Post(models.Model):
     title_tag = models.CharField(max_length=255, default="")
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     body = models.TextField()
+    due_date = models.IntegerField(default=2020)
     post_date = models.DateField(auto_now_add=True)
     category = models.CharField(max_length=255, default="uncategorized")
     image = models.ImageField(null=True, blank=True, upload_to="images/")
