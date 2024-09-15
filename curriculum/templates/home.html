@@ -8,7 +8,7 @@
 <ul style="list-style-type:none;">
 {% for post in object_list %}
 
-   {% if post.category == "Education"%}
+   {% if post.category == "Education" %}
 
 <li><a href="{% url 'article-detail' post.pk %}">
 	<strong>( {{ post.due_date }} ) {{ post.title }}</strong></a> - 
@@ -27,6 +27,7 @@
         {% endif %}
 	  {{ post.body|truncatechars:250 }} </li>
 	<br/>
+
    {% endif %}
 {% endfor %}
 </ul>
