@@ -8,6 +8,8 @@
 <ul style="list-style-type:none;">
 {% for post in object_list %}
 
+{% if post.category == "Education"%}
+
 <li><a href="{% url 'article-detail' post.pk %}">
 	<strong>( {{ post.due_date }} ) {{ post.title }}</strong></a> - 
 <a href="{% url 'category' post.category|slugify %}">{{ post.category }}</a> <br/>
@@ -27,5 +29,6 @@
 	<br/>
 {% endfor %}
 </ul>
+{% endif %}
 
 {% endblock %}
